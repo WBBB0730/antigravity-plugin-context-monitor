@@ -1,44 +1,42 @@
 # Antigravity Context Monitor
 
-[简体中文](./README.zh-CN.md)
+一个极简、自动适配主题的 **Google Antigravity** 侧边栏插件，用来实时查看当前会话的上下文窗口已用比例。
 
-A minimal, theme-adaptive sidecar UI plugin for **Google Antigravity** that displays real-time context window usage for the active conversation.
+## 功能特点
 
-## Features
+- **自动跟随当前会话**：停靠在 Antigravity 右侧辅助面板，切换到哪个会话就实时显示哪个会话的上下文用量。
+- **精确读取本地用量**：只读解析本地 `transcript.jsonl`（零第三方依赖），展示已使用百分比、已用 / 上限 token、缓存命中率与压缩次数。
+- **自动同步模型上限**：每 24 小时后台从 [models.dev](https://models.dev) 同步一次公开模型上限并精简缓存在本地（断网可离线读取），未收录模型自动按系列兜底。
+- **支持按模型手动覆盖**：点击面板右上角容量数字即可调整单个模型的上限，随时可点「默认」恢复自动识别。
+- **自动适配主题**：自动跟随浅色、深色及自定义 Antigravity 主题。
 
-- **Always-on side pane**: Docks in Antigravity's Auxiliary Pane and automatically tracks whichever conversation you switch to.
-- **Exact token usage**: Reads local `transcript.jsonl` (read-only, zero external npm dependencies) to display used percentage, used/limit tokens, prompt cache hit rate, and compaction count.
-- **Automatic model limit sync**: Syncs context limits from [models.dev](https://models.dev) once every 24 hours into a compact local cache (works offline after first sync), with family-level fallbacks for unreleased/internal models.
-- **Per-model custom override**: Click the `used / limit` ratio to adjust or reset the context limit for any model.
-- **Theme adaptive**: Automatically matches light, dark, and custom Antigravity themes.
+## 安装
 
-## Installation
-
-### Option 1: Install via Antigravity CLI
+### 方式一：通过 Antigravity CLI 一键安装
 
 ```bash
 agy plugin install https://github.com/WBBB0730/antigravity-plugin-context-monitor
 ```
 
-### Option 2: Manual installation
+### 方式二：手动安装
 
-Clone this repository into your global Antigravity plugins directory:
+克隆到 Antigravity 全局插件目录：
 
 ```bash
 git clone https://github.com/WBBB0730/antigravity-plugin-context-monitor.git ~/.gemini/config/plugins/context-monitor
 ```
 
-## Usage
+## 使用方式
 
-1. Open the **`+`** menu in the conversation header and select **Context**.
-2. The panel stays docked in the right auxiliary pane and updates automatically as you chat or switch conversations.
-3. Click the capacity ratio (for example `184.1k / 1M`) to pick a preset or set a custom context window limit; click **默认 (Reset)** to restore automatic detection.
+1. 点击会话顶部的 **`+`** 菜单，打开 **Context** 面板。
+2. 面板会停靠在右侧栏中，对话或切换会话时自动刷新。
+3. 点击右上角容量数字（例如 `184.1k / 1M`）可手动修改当前模型的上下文上限；点「默认」可取消覆盖并恢复自动匹配。
 
-## Privacy & Data Access
+## 隐私说明
 
-- Read-only access to `~/.gemini/antigravity/brain/<conversationId>/.system_generated/logs/transcript.jsonl`.
-- No conversation content is ever uploaded; the only outbound request is a daily `GET https://models.dev/api.json` to refresh public model context limits.
+- 对本地会话日志完全只读，不上传任何对话内容。
+- 唯一的联网请求是每 24 小时一次的 `GET https://models.dev/api.json`，仅用于更新公开模型上下文上限表。
 
-## License
+## 开源协议
 
 [MIT](./LICENSE)
