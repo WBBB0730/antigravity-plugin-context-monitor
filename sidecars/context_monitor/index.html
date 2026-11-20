@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>上下文</title>
+  <script src="/preload.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:ROND,opsz,slnt,wdth,wght@0..100,6..144,-10..0,92..100,100..1000&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap">
+  <link rel="stylesheet" href="/styles.css?v=4">
+</head>
+<body>
+  <main class="wrap">
+    <div class="title">上下文</div>
+
+    <div id="empty" class="empty hidden">发送消息后显示上下文用量</div>
+
+    <div id="panel" class="hidden">
+      <div class="row">
+        <div class="used">
+          <span>已使用</span>
+          <span id="used-pct" class="num">0%</span>
+        </div>
+        <button type="button" id="limit-trigger" class="ratio num" title="点击修改模型上下文上限">
+          <span id="used-tokens">0</span>
+          <span class="slash">/</span>
+          <span id="limit-tokens">1M</span>
+        </button>
+      </div>
+
+      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="track">
+        <div id="fill" class="fill"></div>
+      </div>
+
+      <div id="limit-editor" class="editor hidden">
+        <div class="presets">
+          <button type="button" class="preset" data-limit="200000">200K</button>
+          <button type="button" class="preset" data-limit="500000">500K</button>
+          <button type="button" class="preset" data-limit="1000000">1M</button>
+          <button type="button" class="preset" data-limit="2000000">2M</button>
+        </div>
+        <div class="custom">
+          <input id="limit-input" type="number" min="16000" step="10000" placeholder="自定义 token 上限">
+          <button type="button" id="limit-apply" class="btn primary">确定</button>
+          <button type="button" id="limit-reset" class="btn">默认</button>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span id="cache-hit" class="num"></span>
+        <span id="meta-right" class="num"></span>
+      </div>
+    </div>
+  </main>
+  <script src="/app.js?v=5"></script>
+</body>
+</html>

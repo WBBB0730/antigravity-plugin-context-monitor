@@ -1,0 +1,196 @@
+/*
+ * Context Monitor — compact, theme-adaptive layout.
+ * All local custom properties use the --cm- prefix so they never collide
+ * with host theme tokens written onto :root by preload.js (e.g. --muted, --border).
+ */
+:root {
+  color-scheme: light;
+  --cm-bg: var(--background, #f7f7f8);
+  --cm-card: var(--card, #ffffff);
+  --cm-fg: var(--foreground, #1d1f21);
+  --cm-fg-muted: color-mix(in srgb, var(--cm-fg) 62%, transparent);
+  --cm-border: color-mix(in srgb, var(--cm-fg) 14%, transparent);
+  --cm-track: color-mix(in srgb, var(--cm-fg) 13%, transparent);
+  --cm-hover: color-mix(in srgb, var(--cm-fg) 6%, transparent);
+  --cm-bar: var(--primary, #3b9eff);
+  --cm-bar-fg: var(--primary-foreground, #ffffff);
+  --cm-warn: #c78d14;
+  --cm-danger: var(--error, #d93f3f);
+  --cm-font: var(--font-family, "Google Sans Flex", "Google Sans", -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", sans-serif);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --cm-track: color-mix(in srgb, var(--cm-fg) 14%, transparent);
+  --cm-hover: color-mix(in srgb, var(--cm-fg) 7%, transparent);
+  --cm-warn: #eab338;
+  --cm-danger: var(--error, #ef5b5b);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--cm-bg);
+  color: var(--cm-fg);
+}
+body {
+  font-family: var(--cm-font);
+  font-size: 12px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.hidden { display: none !important; }
+.num { font-variant-numeric: tabular-nums; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+.wrap {
+  padding: 14px 16px 18px;
+  max-width: 480px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cm-fg-muted);
+  margin-bottom: 8px;
+}
+
+.empty {
+  font-size: 12px;
+  color: var(--cm-fg-muted);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.used {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cm-fg);
+}
+
+.ratio {
+  border: 0;
+  background: transparent;
+  padding: 1px 5px;
+  margin-right: -5px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--cm-fg-muted);
+  white-space: nowrap;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+.ratio:hover {
+  background: var(--cm-hover);
+  color: var(--cm-fg);
+}
+.slash {
+  margin: 0 2px;
+  opacity: 0.7;
+}
+
+.track {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--cm-track);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--cm-bar);
+  transition: width 260ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease;
+}
+.fill.warn { background: var(--cm-warn); }
+.fill.danger { background: var(--cm-danger); }
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--cm-fg-muted);
+}
+#meta-right {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.meta-warn { color: var(--cm-warn); }
+.meta-danger { color: var(--cm-danger); }
+
+/* Inline limit editor (shown only when ratio is clicked) */
+.editor {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--cm-border);
+  background: var(--cm-card);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.presets {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.preset {
+  border: 1px solid var(--cm-border);
+  background: transparent;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 11px;
+  color: var(--cm-fg);
+}
+.preset:hover { background: var(--cm-hover); }
+.preset.active {
+  border-color: var(--cm-bar);
+  color: var(--cm-bar);
+}
+.custom {
+  display: flex;
+  gap: 5px;
+}
+.custom input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--cm-border);
+  background: var(--cm-bg);
+  color: var(--cm-fg);
+  border-radius: 4px;
+  padding: 3px 7px;
+  font-size: 11px;
+}
+.btn {
+  border: 1px solid var(--cm-border);
+  background: transparent;
+  color: var(--cm-fg);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--cm-hover); }
+.btn.primary {
+  background: var(--cm-bar);
+  border-color: var(--cm-bar);
+  color: var(--cm-bar-fg);
+}

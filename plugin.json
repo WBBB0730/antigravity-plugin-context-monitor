@@ -1,0 +1,18 @@
+{
+  "name": "context-monitor",
+  "displayName": "Context Monitor",
+  "version": "0.1.0",
+  "description": "Minimal real-time context window monitor for Antigravity, with automatic model limit sync from models.dev.",
+  "author": {
+    "name": "WBBB",
+    "url": "https://github.com/WBBB0730"
+  },
+  "homepage": "https://github.com/WBBB0730/antigravity-plugin-context-monitor",
+  "repository": "https://github.com/WBBB0730/antigravity-plugin-context-monitor",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Open the Context Monitor side pane",
+    "Check current session context usage and cache hit rate",
+    "Review how close this conversation is to its context limit"
+  ]
+}
